@@ -1,16 +1,33 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { HomePage } from '../pages/HomePage';
 import { Layout } from '../pages/Layout';
 
+import { PrivateRoutes } from './PrivateRoutes';
+import { PublicRoutes } from './PublicRoutes';
+
 export const AppRouter = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<Layout />}>
-          <Route index element={<HomePage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path="/login"
+        element={
+          <PublicRoutes>
+            <div>Login Page</div>
+          </PublicRoutes>
+        }
+      />
+
+      <Route
+        path="/*"
+        element={
+          <PrivateRoutes>
+            <Layout>
+              <HomePage />
+            </Layout>
+          </PrivateRoutes>
+        }
+      />
+    </Routes>
   );
 };
